@@ -3,7 +3,7 @@
 **Category:** User Account Management / Access Control  
 **Environment:** Windows 11 Pro ARM (UTM Virtual Machine)  
 **Account:** TestEmployee  
-**Status:** Provisioning successful; final group-token verification pending
+**Status:** Resolved — Account Provisioning Verified
 
 ## Issue / Service Request
 Provision a new employee account with standard Windows permissions and require a password change upon first login.
@@ -24,9 +24,20 @@ Provision a new employee account with standard Windows permissions and require a
 - The first-login password change requirement functioned correctly.
 - Local group membership was consistent with standard-user access.
 - The attempted privileged operation was denied, indicating the Command Prompt session did not have the required administrative privileges.
+- Executed `whoami /groups` and confirmed that
+  `BUILTIN\Administrators` was not present.
+- Verified that the account operated without
+  elevated administrator privileges.
 
 ## Resolution
-Account provisioning and initial permission checks were successful. Final verification with `whoami /groups` is pending.
+Successfully provisioned TestEmployee as a standard
+local Windows account.
+
+Verified first-login password change enforcement,
+Users group membership, and restricted administrative
+access using `whoami`, `whoami /groups`, and `net session`.
+
+Ticket closed — account provisioning verified.
 
 ## Skills Demonstrated
 Windows 11 Administration, Local User Management, Group Membership Verification, Least Privilege, User Account Control, Command-Line Diagnostics, Access Control Troubleshooting, IT Ticket Documentation.
