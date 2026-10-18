@@ -57,6 +57,13 @@ Status: Closed - Investigation Completed
 - CPU and RAM monitoring
 - Application troubleshooting
 - Technical documentation
+ 
+
+## Screenshot Evidence
+
+Task Manager showing memory usage during a follow-up browser performance test.
+
+![Windows Task Manager memory usage](../screenshots/ticket-001-task-manager.png)
 
 ## Notes
 
