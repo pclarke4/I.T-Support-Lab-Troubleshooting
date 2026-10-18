@@ -1,105 +1,70 @@
-# Help Desk Ticket #003 — Windows Network Connectivity Troubleshooting
+# Ticket 003 - Windows Network Troubleshooting
 
-**Ticket ID:** HD-003  
-**Category:** Network Connectivity / Troubleshooting  
-**Priority:** Medium (Simulated)  
-**Environment:** Windows 11 Pro ARM, UTM Virtual Machine  
-**User:** TestEmployee (Lab Account)  
-**Status:** Closed — No Fault Found  
-**Issue Type:** Simulated Help Desk Scenario
+## Issue
 
-## 1. Problem Description
+Simulated a Help Desk request involving a Windows computer experiencing possible internet connectivity problems.
 
-A simulated employee reported being unable to access the internet from their Windows workstation.
+The goal was to check the network configuration, test connectivity to the local gateway and internet, and verify that DNS was working correctly.
 
-The objective was to diagnose the issue using Windows networking utilities, verify local and external connectivity, and identify potential DNS or routing problems.
+## Environment
 
-## 2. Troubleshooting Steps
+- Windows 11 Pro ARM
+- UTM virtual machine
+- Command Prompt
+- Microsoft Edge
+- NAT virtual networking
 
-### Step 1 — Verify IP Configuration
+## Troubleshooting Steps
 
-**Command:** `ipconfig`
+1. Opened Command Prompt and ran `ipconfig` to check the computer's IP configuration.
+2. Identified the IPv4 address as `192.168.64.2` and default gateway as `192.168.64.1`.
+3. Ran `ping 192.168.64.1` to test connectivity to the default gateway.
+4. Ran `ping 8.8.8.8` to test external network connectivity.
+5. Ran `nslookup google.com` to verify DNS resolution.
+6. Opened Google in Microsoft Edge to confirm web access.
+7. Ran `tracert -d 8.8.8.8` to examine the network path to an external destination.
 
-**Findings:**
-- IPv4 Address: `192.168.64.2`
-- Default Gateway (IPv4): `192.168.64.1`
-- An IPv6 link-local default gateway was also present.
+## Results
 
-**Result:** Windows had a private IPv4 address and a configured default gateway.
+| Test | Result |
+|---|---|
+| IP configuration | 192.168.64.2 |
+| Default gateway | 192.168.64.1 |
+| Gateway ping | Successful |
+| External ping | Successful |
+| DNS lookup | Successful |
+| Browser connectivity | Successful |
+| Traceroute | Destination reached |
 
-### Step 2 — Test Default Gateway Connectivity
+## Findings
 
-**Command:** `ping 192.168.64.1`
+The computer had a valid IP configuration and could communicate with its default gateway.
 
-**Result:** Successful ICMP replies.
+External ping tests and DNS resolution were successful. Microsoft Edge was also able to load websites.
 
-**Finding:** The virtual machine could communicate with its configured IPv4 gateway.
+Some intermediate traceroute hops did not respond, but the destination was reached. This did not indicate a confirmed connectivity failure.
 
-### Step 3 — Test External IP Connectivity
+No active network issue was reproduced during testing.
 
-**Command:** `ping 8.8.8.8`
+## Resolution
 
-**Result:** Successful ICMP replies.
+Completed network diagnostics and confirmed that local connectivity, external connectivity, DNS, and web browsing were functioning.
 
-**Finding:** The system could reach an external public IP address.
+No network configuration changes were required.
 
-### Step 4 — Verify DNS Resolution
+Status: Closed - No Fault Found
 
-**Command:** `nslookup google.com`
+## Skills Used
 
-**Result:** DNS successfully returned IP addresses.
+- TCP/IP networking
+- Windows Command Prompt
+- IP configuration
+- Ping testing
+- DNS troubleshooting
+- Traceroute
+- Network troubleshooting
+- Technical documentation
 
-**Finding:** Domain-name resolution functioned for the tested domain.
+## Notes
 
-### Step 5 — Verify HTTPS Website Access
-
-**Test:** Opened `https://www.google.com` in Microsoft Edge.
-
-**Result:** Website loaded successfully.
-
-**Finding:** HTTPS website access was functioning for the tested site.
-
-### Step 6 — Trace Network Route
-
-**Command:** `tracert -d 8.8.8.8`
-
-**Results:**
-- First hop: `192.168.64.1`
-- Some intermediate hops did not respond.
-- Destination was successfully reached.
-
-**Finding:** The route to the destination was completed despite intermediate probe timeouts.
-
-## 3. Root Cause Analysis
-
-No active network connectivity fault was reproduced during testing.
-
-The simulated workstation demonstrated functioning IP configuration, gateway communication, external connectivity, DNS resolution, and HTTPS access.
-
-**Root cause:** Undetermined — no fault reproduced.
-
-## 4. Resolution
-
-No configuration changes or repairs were necessary.
-
-All diagnostic tests completed successfully. The simulated ticket was closed as **No Fault Found**.
-
-## 5. Skills Demonstrated
-
-- Windows 11 Network Troubleshooting
-- TCP/IP Fundamentals
-- IPv4 Addressing and Default Gateways
-- ICMP Connectivity Testing
-- DNS Diagnostics
-- Network Route Analysis
-- Command Prompt Utilities
-- Structured IT Troubleshooting
-- Technical Documentation
-
-## 6. Lessons Learned
-
-A valid IP address does not guarantee internet connectivity. Effective network troubleshooting requires testing each component systematically.
-
-Successful gateway connectivity, external IP connectivity, DNS resolution, and HTTPS access provide stronger evidence of a functioning connection than any individual test alone.
-
-Additionally, intermediate traceroute timeouts do not automatically indicate a network outage.
+This was a simulated Help Desk scenario completed in my Windows 11 home lab. No actual customer incident or production network was involved.

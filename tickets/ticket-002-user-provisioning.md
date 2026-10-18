@@ -1,43 +1,66 @@
-# Help Desk Ticket #002 — Windows Local User Account Provisioning
+# Ticket 002 - Windows User Account Management
 
-**Category:** User Account Management / Access Control  
-**Environment:** Windows 11 Pro ARM (UTM Virtual Machine)  
-**Account:** TestEmployee  
-**Status:** Resolved — Account Provisioning Verified
+## Issue
 
-## Issue / Service Request
-Provision a new employee account with standard Windows permissions and require a password change upon first login.
+Simulated a Help Desk request to create a Windows account for a new employee.
 
-## Troubleshooting and Actions Performed
-1. Accessed Computer Management → Local Users and Groups → Users.
-2. Created a local user account named `TestEmployee`.
-3. Assigned a temporary password and enabled **User must change password at next logon**.
-4. Verified that the account belonged to the local Users group and was not listed in Administrators.
-5. Successfully signed in using the employee account.
-6. Confirmed that Windows required the temporary password to be changed.
-7. Attempted to launch an elevated Command Prompt and investigated the unexpected absence of a UAC prompt.
-8. Executed `whoami` to confirm the active account was `TestEmployee`.
-9. Executed `net session`, which returned **System error 5 — Access is denied**.
+The account needed standard user permissions, a password change at first login, and restricted access to administrator functions.
+
+## Environment
+
+- Windows 11 Pro ARM
+- UTM virtual machine
+- Computer Management
+- Local Users and Groups
+- Command Prompt
+
+## Troubleshooting Steps
+
+1. Opened Computer Management and navigated to Local Users and Groups.
+2. Created a local account named TestEmployee.
+3. Assigned the account to the standard Users group.
+4. Enabled the option requiring a password change at the next login.
+5. Signed in using the new account and completed the password change.
+6. Opened Command Prompt and ran `whoami` to verify the account.
+7. Ran `net session` to check administrative access.
+8. Ran `whoami /groups` to verify group membership.
+
+## Results
+
+| Test | Result |
+|---|---|
+| Account creation | Successful |
+| First-login password change | Successful |
+| `whoami` | TestEmployee |
+| `net session` | System error 5 - Access denied |
+| `whoami /groups` | Administrators group not present |
 
 ## Findings
-- The new employee account was created successfully.
-- The first-login password change requirement functioned correctly.
-- Local group membership was consistent with standard-user access.
-- The attempted privileged operation was denied, indicating the Command Prompt session did not have the required administrative privileges.
-- Executed `whoami /groups` and confirmed that
-  `BUILTIN\Administrators` was not present.
-- Verified that the account operated without
-  elevated administrator privileges.
+
+The TestEmployee account was successfully created with standard user permissions.
+
+The account was able to sign in and change its password but did not have administrator privileges.
+
+The access-denied result from `net session`, together with the group membership check, supported that the account was operating with restricted permissions.
 
 ## Resolution
-Successfully provisioned TestEmployee as a standard
-local Windows account.
 
-Verified first-login password change enforcement,
-Users group membership, and restricted administrative
-access using `whoami`, `whoami /groups`, and `net session`.
+Verified that the account was created correctly and had the intended permissions.
 
-Ticket closed — account provisioning verified.
+No additional changes were required.
 
-## Skills Demonstrated
-Windows 11 Administration, Local User Management, Group Membership Verification, Least Privilege, User Account Control, Command-Line Diagnostics, Access Control Troubleshooting, IT Ticket Documentation.
+Status: Closed - Account Provisioning Verified
+
+## Skills Used
+
+- Windows user account management
+- Local Users and Groups
+- User provisioning
+- Access control
+- Principle of least privilege
+- Command Prompt
+- Technical documentation
+
+## Notes
+
+This was a simulated Help Desk scenario completed in my Windows 11 home lab. No actual employee account or production system was involved.
